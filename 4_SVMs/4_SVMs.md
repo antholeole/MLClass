@@ -1,7 +1,7 @@
 ---
-title: | 
-        CS 474/574 Machine Learning \
-        4 . Support Vector Machines (SVMs)
+title: |
+         CS 474/574 Machine Learning \
+         4. Support Vector Machines (SVMs)
 author: |
           Prof. Dr. Forrest Sheng Bao \
           Dept. of Computer Science \
@@ -24,9 +24,9 @@ classoption:
 
 # Agenda
 
-- Perceptron algorithm -- Its model differs from SVMs a lot. But it shows that the weight vector is a linear combination of some samples -- it resembles SVMs in that sense. 
+- Perceptron algorithm -- Its model differs from SVMs a lot. But it shows that the weight vector is a linear combination of some samples -- it resembles SVMs in that sense.
 
-- The intuition of SVMs: separate similar samples of both classes apart as far as possible. 
+- The intuition of SVMs: separate similar samples of both classes apart as far as possible.
 
 - Deriving the primal form of SVMs, and solving it in KKT conditions
 
@@ -34,11 +34,11 @@ classoption:
 
 - Soft-margin SVMs
 
-# All samples are equal. But some samplers are equaler. 
+# All samples are equal. But some samplers are equaler.
 
-- Let's first see a demo of a linear classifier for linearly separable cases. Pay attention to the prediction outcome. 
-- Think about the error-based loss function for a classifier: $\sum_i (\hat{y} - y )^2$ where $y$ is the ground truth label and $\hat{y}$ is the prediction. 
-- If $y=+1$ and $\hat{y} = +1.5$, should the error be 0.25 or 0 (because properly classified)? 
+- Let's first see a demo of a linear classifier for linearly separable cases. Pay attention to the prediction outcome.
+- Think about the error-based loss function for a classifier: $\sum_i (\hat{y} - y )^2$ where $y$ is the ground truth label and $\hat{y}$ is the prediction.
+- If $y=+1$ and $\hat{y} = +1.5$, should the error be 0.25 or 0 (because properly classified)?
 
 # The perceptron algorithm
 
@@ -54,13 +54,13 @@ classoption:
     $\nabla J(\mathbf{w}) =  \sum\limits_{\mathbf{x}_i \in \mathcal{M}} - \mathbf{x}_iy_i$
     (because $\mathbf{w}$ is the coefficients.)
 
--   Only those misclassified matter! 
+-   Only those misclassified matter!
 
 -   Batch perceptron algorithm: In each batch, computer
     $\nabla J(\mathbf{w})$ for all samples misclassified using the same
     current $\mathbf{w}$ and then update.
 
-# Single-sample perceptron algorithm 
+# Single-sample perceptron algorithm
 
 -   Another common type of perceptron algorithm is called single-sample
     perceptron algorithm.
@@ -85,16 +85,16 @@ classoption:
 
 :::::::::::::: columns
 ::: {.column width="50%"}
-- Feature vectors **not augmented** and corresponding labels: 
+- Feature vectors **not augmented** and corresponding labels:
 
   - $\mathbf{x}'_1= (0, 0)^T$, $y_1=1$
   - $\mathbf{x}'_2= (0, 1)^T$, $y_2=1$
   - $\mathbf{x}'_3= (1, 0)^T$, $y_3=-1$
   - $\mathbf{x}'_4= (1, 1)^T$, $y_4=-1$
 
- - First, let's augment them and multiply with the labels: 
-   - $\mathbf{x}_1y_1 = (0, 0, 1)^T$, 
-   - $\mathbf{x}_2y_2= (0, 1, 1 )^T$, 
+ - First, let's augment them and multiply with the labels:
+   - $\mathbf{x}_1y_1 = (0, 0, 1)^T$,
+   - $\mathbf{x}_2y_2= (0, 1, 1 )^T$,
    - $\mathbf{x}_3y_3= (-1, 0, -1)^T$
    - $\mathbf{x}_4y_4= (-1, -1, -1)^T$
 :::
@@ -103,7 +103,7 @@ classoption:
 
 0. Begin our iteration. Let $\mathbf{w}_1= (0,0,0)^T$ and $\rho=1$.
 
-1.  $\mathbf{w}_1^T \cdot \mathbf{x}_1 y_1= 
+1.  $\mathbf{w}_1^T \cdot \mathbf{x}_1 y_1=
     \begin{pmatrix}
     0 & 0 & 0
     \end{pmatrix}
@@ -111,10 +111,10 @@ classoption:
     0 \\
     0 \\
     1
-    \end{pmatrix} = 0 \leq 0$. 
-    
+    \end{pmatrix} = 0 \leq 0$.
+
     Need to update $\mathbf{w}$:
-    $\mathbf{w}_2 = \mathbf{w}_1 + \rho \cdot \mathbf{x}_1 y_1 = 
+    $\mathbf{w}_2 = \mathbf{w}_1 + \rho \cdot \mathbf{x}_1 y_1 =
     \begin{pmatrix}
     0 \\
     0 \\
@@ -125,7 +125,7 @@ classoption:
     0 \\
     0 \\
     1
-    \end{pmatrix} = 
+    \end{pmatrix} =
     \begin{pmatrix}
     0 \\
     0 \\
@@ -134,7 +134,7 @@ classoption:
 :::
 ::::::::::::::
 
-2.  $\mathbf{w}_2^T \cdot \mathbf{x}_2 y_2= 
+2.  $\mathbf{w}_2^T \cdot \mathbf{x}_2 y_2=
     \begin{pmatrix}
     0 & 0 & 1
     \end{pmatrix}
@@ -153,7 +153,7 @@ classoption:
 
 Continue in [perceptron.ipynb](./perceptron.ipynb)
 
-14.   In the end, we have $\mathbf{w}_{14} = 
+14.   In the end, we have $\mathbf{w}_{14} =
      \begin{pmatrix}
      -3 \\
      0 \\
@@ -178,14 +178,14 @@ Continue in [perceptron.ipynb](./perceptron.ipynb)
 
 -   What is $\mathbf{w}$ exactly? A linear composition of all training samples!
 
--   Do all samples contribute to $\mathbf{w}$? Not really! 
+-   Do all samples contribute to $\mathbf{w}$? Not really!
 
 :::
 ::::::::::::::
 
-# 
+#
 
-Now let's begin the SVM journey. 
+Now let's begin the SVM journey.
 
 
 # Getting ready for SVMs
@@ -214,13 +214,13 @@ Now let's begin the SVM journey.
 -   We have proved that $\mathbf{w}$, augmented or not, is perpendicular
     to the hyperlane.
 
-# What is the distance from a sample $\mathbf{z}$ to the hyperplane? 
+# What is the distance from a sample $\mathbf{z}$ to the hyperplane?
 
 :::::::::::::: columns
 ::: {.column width="35%"}
 
 ![](figs/vector_to_hyperplane.pdf){width="110%"}
-::: 
+:::
 
 ::: {.column width="65%"}
 1.   Let the point on the hyperplane closest to $\mathbf{z}$ be $\mathbf{x}$. Define
@@ -229,7 +229,7 @@ Now let's begin the SVM journey.
 2.   Because both $\mathbf{y}$ and $\mathbf{w}$ are perpendicular to the
     hyperplane, we can rewrite
     $\mathbf{y} = v \frac{\mathbf{w}}{||\mathbf{w}||}$, where $v$ is the
-    Euclidean distance from $\mathbf{z}$ to $\mathbf{x}$ (what we are trying to get), 
+    Euclidean distance from $\mathbf{z}$ to $\mathbf{x}$ (what we are trying to get),
     $\frac{\mathbf{w}}{||\mathbf{w}||}$ is the unit vector pointing at
     the direction of $\mathbf{w}$, $||\mathbf{w}||$ is the $l^2$ norm of $\mathbf{w}$.
 
@@ -243,22 +243,22 @@ Now let's begin the SVM journey.
 ::: {.column width="60%"}
 
 4.   The prediction for $\mathbf{z}$ is then (subsituting into linear classifier equation): $\begin{array}{rcl} & & \mathbf{w}^T\mathbf{z} + w_b \\
-       & = & \mathbf{w}^T(\mathbf{x} + v\frac{\mathbf{w}}{||\mathbf{w}||}) + w_b \\ 
-       & = & \mathbf{w}^T\mathbf{x} + 
+       & = & \mathbf{w}^T(\mathbf{x} + v\frac{\mathbf{w}}{||\mathbf{w}||}) + w_b \\
+       & = & \mathbf{w}^T\mathbf{x} +
               v\frac{\mathbf{w}^T \mathbf{w}} {||\mathbf{w}||}
-        + w_b 
-             = \underbrace{\mathbf{w}^T\mathbf{x} + w_b}_{=0, \text{by definition}} + 
+        + w_b
+             = \underbrace{\mathbf{w}^T\mathbf{x} + w_b}_{=0, \text{by definition}} +
               v\frac{\mathbf{w}^T \mathbf{w}} {||\mathbf{w}||}
         \\
-       & = & v \frac{\mathbf{w}^T\mathbf{w}}{||\mathbf{w}||} = v \frac{||\mathbf{w}||^2}{||\mathbf{w}||} = v ||\mathbf{w}||. 
+       & = & v \frac{\mathbf{w}^T\mathbf{w}}{||\mathbf{w}||} = v \frac{||\mathbf{w}||^2}{||\mathbf{w}||} = v ||\mathbf{w}||.
        \end{array}$
 
 
-::: 
+:::
 
 ::: {.column width="50%"}
 
-5.   Finally, $v = \overbrace{(\mathbf{w}^T \mathbf{z} + w_b)}^{prediction=d} / ||\mathbf{w}||$. 
+5.   Finally, $v = \overbrace{\mathbf{w}^T \mathbf{z} + w_b}^{prediction} / ||\mathbf{w}||$.
 
 6. **Conclusion**: a sample $\mathbf{z}$'s distance to a hyperplane $\mathbf{w}^T\mathbf{x}+w_b=0$ is $d/||\mathbf{w}||$ **if and only if** the prediction for it $\mathbf{w}^T\mathbf{z}+w_b$ is $\pm d$. (The sign ahead of $d$ depends on which side the sample is on.)
 
@@ -276,13 +276,13 @@ Now let's begin the SVM journey.
 
  ![](figs/SVM_idea_d1_d2_gutter.pdf){width="115%"}
 
-::: 
+:::
 
 ::: {.column width="70%"}
 
-- All samples of Classes $+1$ and $-1$ are above and below the hyperplane, respectively. 
+- All samples of Classes $+1$ and $-1$ are above and below the hyperplane, respectively.
 
-- For Class $+1$, denote the distance from the sample(s) closest to the hyperplane as $d_1/||\mathbf{w}||$ ($d_1 > 0$). 
+- For Class $+1$, denote the distance from the sample(s) closest to the hyperplane as $d_1/||\mathbf{w}||$ ($d_1 > 0$).
 
 - Using the conclusion from previous slide, the prediction $\mathbf{w}^T\mathbf{x} + w_b$ for any sample $\mathbf{x}$ of Class $+1$ is thus at least $d_1$: $\mathbf{w}^T\mathbf{x} + w_b \ge d_1.$
 
@@ -296,13 +296,13 @@ Now let's begin the SVM journey.
 
 - The idea of an SVM is to find a direction (defined by $\mathbf{w}$) along which closest samples of both classes are apart the most.
 
-- **margin**: the strip between $\mathbf{w}^T\mathbf{x} + w_b = d_1$ and  
-$\mathbf{w}^T\mathbf{x} + w_b = - d_2$ where no sample falls into. 
+- **margin**: the strip between $\mathbf{w}^T\mathbf{x} + w_b = d_1$ and
+$\mathbf{w}^T\mathbf{x} + w_b = - d_2$ where no sample falls into.
 
-::: 
+:::
 
 ::: {.column width="50%"}
-- Width of the margin $\frac{d_1}{||\mathbf{w}||} + \frac{d_2}{||\mathbf{w}||}$. 
+- Width of the margin $\frac{d_1}{||\mathbf{w}||} + \frac{d_2}{||\mathbf{w}||}$.
 -  We want to maximize margin width: $\begin{cases}
                \max & \frac{d_1}{||\mathbf{w}||} + \frac{d_2}{||\mathbf{w}||} \\
                s.t. & \mathbf{w}^T\mathbf{x} + w_b - d_ 1\ge 0, \forall \mathbf{x} \in C_{+1} \\
@@ -318,15 +318,15 @@ $\mathbf{w}^T\mathbf{x} + w_b = - d_2$ where no sample falls into.
 
 ![](figs/SVM_idea_width_2_gutters.pdf){width="120%"}
 
-::: 
+:::
 
 ::: {.column width="65%"}
 
 -   We prefer $d_1=d_2$: both classes are equal.
 
--   Since $d_1$ and $d_2$ are constants, we can let them be 1. 
+-   Since $d_1$ and $d_2$ are constants, we can let them be 1.
 
--   Leveraging the label $y_k\in\{+1, -1\}$, we have a consice form: 
+-   Leveraging the label $y_k\in\{+1, -1\}$, we have a consice form:
     $\begin{cases}
                \max & \frac{2}{||\mathbf{w}||}\\
                s.t. & y_k(\mathbf{w}^T\mathbf{x}_k + w_b) \ge 1, \forall \mathbf{x}_k\in C_{+1}\cup C_{-1}.
@@ -362,24 +362,24 @@ $\mathbf{w}^T\mathbf{x} + w_b = - d_2$ where no sample falls into.
               \lambda_k \ge 0, & \forall k\in [1..K]\\
               \lambda_k h_k(\mathbf{x}) = 0, & \forall k\in [1..K]\\
             \end{cases}$$
-    The last condition is sometimes written in the equivalent form $\sum_k \lambda_k h_k(\mathbf{x}) = 0$. 
+    The last condition is sometimes written in the equivalent form $\sum_k \lambda_k h_k(\mathbf{x}) = 0$.
 
 # The Lagrangian function of a hard-margin linear SVM
-* Given a nonlinear optimization problem 
+* Given a nonlinear optimization problem
   $\begin{cases}
                \min & f(\mathbf{x}) \\
                s.t. & h_k(\mathbf{x}) \ge 0, \forall k \in [1..K],
             \end{cases}$ where $\mathbf{x}$ is a vector, and
     $h_k(\cdot)$ is linear, its Lagrangian function is:
     $$L(\mathbf{x}, \mathbf{\lambda}) = f(\mathbf{x}) - \sum_{k=1}^{K} \lambda_k h_k(\mathbf{x})$$
-* Thus, given the primal form of SVMs: 
+* Thus, given the primal form of SVMs:
   $\begin{cases}
                \min & \frac{1}{2} ||\mathbf{w}||^2 = \frac{1}{2} \mathbf{w}^T\mathbf{w} \\
                s.t. & y_k(\mathbf{w}^T\mathbf{x}_k + w_b) \ge 1, \forall \mathbf{x}_k.
             \end{cases}$
-  its Lagrangian function is: 
-$$L(\mathbf{w}, w_b, \mathbf{\lambda}) = {1\over 2} \mathbf{w}^T \mathbf{w} -  \sum_{k=1}^{K} \lambda_k [y_k(\mathbf{w}^T\mathbf{x}_k + w_b) - 1]$$
-   where $K$ is the total number of samples. 
+  its Lagrangian function is:
+$$L(\mathbf{w}, \mathbf{\lambda}) = {1\over 2} \mathbf{w}^T \mathbf{w} - \sum_{k=1}^{K} y_k(\mathbf{w}^T\mathbf{x}_k + w_b) - 1$$
+   where $K$ is the total number of samples.
 
 # The KKT conditions and properties of hard margin linear SVM
 
@@ -390,10 +390,10 @@ For an SVM problem, the KKT conditions thus are: $$\begin{cases}
               D: \lambda_k [y_k (\mathbf{w}^T \mathbf{x_k} + w_b) -1] = 0, & \forall k\in [1..K]\\
             \end{cases}     $$
 
-. . . 
+. . .
 
-From Eqs. A and B, 
-    $$\frac{\partial L}{\partial \mathbf{w}} = \mathbf{w} - \sum_{k=1}^K \lambda_k y_k \mathbf{x_k} = \mathbf{0} \Rightarrow \mathbf{w} = \sum_{k=1}^K \lambda_k y_k \mathbf{x_k} $$
+From Eqs. A and B,
+$$\frac{\partial L}{\partial \mathbf{w}} = \mathbf{w} - \sum_{k=1}^K \lambda_k y_k \mathbf{x_k} \Rightarrow \mathbf{w} = \sum_{k=1}^K \lambda_k y_k \mathbf{x_k} $$
 $$\frac{\partial L}{\partial w_b} = \sum_{k=1}^K \lambda_k y_k = 0 $$
 
 . . .
@@ -407,20 +407,20 @@ Because  $\lambda_k$ is either positive or 0, the solution of the SVM problem is
 ::: {.column width="60%"}
 
 -   Therefore, Eq. A can be rewritten into
-    $$\mathbf{w} = \sum_{\mathbf{x}_k\in N_s} \lambda_k y_k \mathbf{x_k}$$ 
-    
+    $$\mathbf{w} = \sum_{\mathbf{x}_k\in N_s} \lambda_k y_k \mathbf{x_k}$$
+
 -   The samples
     $\mathbf{x}_k \in N_s$ collectively determine the $\mathbf{w}$, and
     thus called **support vectors**, supporting the solution.
 
 -   The support vectors also have an interesting "visual" properties.
-    From Eq. D, we have $\lambda_k [y_k (\mathbf{w}^T \mathbf{x_k} + w_b) -1] = 0$. Because for $\mathbf{x}_k \in N_s$, $\lambda_k >0$, then 
+    From Eq. D, we have $\lambda_k [y_k (\mathbf{w}^T \mathbf{x_k} + w_b) -1] = 0$. Because for $\mathbf{x}_k \in N_s$, $\lambda_k >0$, then
     <!-- only can $y_k (\mathbf{w}^T \mathbf{x_k} + w_b) -1 = 0$. Thus -->
-     $y_k (\mathbf{w}^T \mathbf{x_k} + w_b) = 1$. 
+     $y_k (\mathbf{w}^T \mathbf{x_k} + w_b) = 1$.
 
 -   Given that $y_k\in \{+1, -1\}$, we have
-    $\mathbf{w}^T \mathbf{x_k} + w_b = \pm 1$. They support the **gutters**. 
-::: 
+    $\mathbf{w}^T \mathbf{x_k} + w_b = \pm 1$. They support the **gutters**.
+:::
 
 ::: {.column width="40%"}
 
@@ -433,22 +433,22 @@ Because  $\lambda_k$ is either positive or 0, the solution of the SVM problem is
 :::::::::::::: columns
 ::: {.column width="50%"}
 
-1. Given a nonlinear optimization problem in the **primal** form 
+1. Given a nonlinear optimization problem in the **primal** form
 
 $$\begin{cases}
     \min & f(\mathbf{x}) \\
     s.t. & h_k(\mathbf{x}) \ge 0, \forall k \in [1..K], \\
-\end{cases}$$ 
+\end{cases}$$
 
 . . .
 
-2. its **dual form** is 
+2. its **dual form** is
 
-$$\begin{cases} 
-    \max & L(\mathbf{x}, \mathbf{\lambda})  = f(\mathbf{x}) - \sum_{k=1}^{K} \lambda_k h_k(\mathbf{x})\\ 
+$$\begin{cases}
+    \max & L(\mathbf{x}, \mathbf{\lambda})  = f(\mathbf{x}) - \sum_{k=1}^{K} \lambda_k h_k(\mathbf{x})\\
     s.t. & \lambda_k \ge 0, \forall k \in [1..K],  \\
-         & \nabla L = \mathbf{0}          
-\end{cases}$$ 
+         & \nabla L = \mathbf{0}
+\end{cases}$$
 
 . . .
 
@@ -456,7 +456,7 @@ $$\begin{cases}
 
 ::: {.column width="60%"}
 
-3. Thus for a **primal** SVM problem 
+3. Thus for a **primal** SVM problem
  $$\begin{cases}
                \min & \frac{1}{2} ||\mathbf{w}||^2 = \frac{1}{2} \mathbf{w}^T\mathbf{w} \\
                s.t. & y_k(\mathbf{w}^T\mathbf{x}_k + w_b) \ge 1, \forall \mathbf{x}_k.
@@ -464,15 +464,15 @@ $$\begin{cases}
 
 . . .
 
-4. its **dual form** is 
+4. its **dual form** is
 
-$$\begin{cases}   
-    \max & \frac{1}{2} ||\mathbf{w}||^2  - 
+$$\begin{cases}
+    \max & \frac{1}{2} ||\mathbf{w}||^2  -
            \sum\limits_{k=1}^K \lambda_k(y_k(\mathbf{w}^T\mathbf{x_k} + w_b) -1 ) \\
     s.t. & \lambda_k \ge 0, \forall k \in [1..K],  \\
          & \mathbf{w} = \sum\limits_{k=1}^K \lambda_ky_kx_k ~~(from~~ \frac{\partial L}{\partial \mathbf{w}}=0), \\
          & \sum\limits_{k=1}^K \lambda_ky_k=0 ~~(from~~ \frac{\partial L}{\partial w_b}=0)
-\end{cases}$$ 
+\end{cases}$$
 
 
 :::
@@ -483,17 +483,17 @@ $$\begin{cases}
 :::::::::::::: columns
 ::: {.column width="50%"}
 
-$$\begin{cases}   
-    \max & \frac{1}{2} ||\mathbf{w}||^2  - 
+$$\begin{cases}
+    \max & \frac{1}{2} ||\mathbf{w}||^2  -
            \sum\limits_{k=1}^K \lambda_k(y_k(\mathbf{w}^T\mathbf{x_k} + w_b) -1 ) \\
     s.t. & \lambda_k \ge 0, \forall k \in [1..K],  \\
          & \mathbf{w} = \sum\limits_{k=1}^K \lambda_ky_kx_k ~~(from~~ \frac{\partial L}{\partial \mathbf{w}}=0), \\
          & \sum\limits_{k=1}^K \lambda_ky_k=0 ~~(from~~ \frac{\partial L}{\partial w_b}=0)
-\end{cases}$$ 
+\end{cases}$$
 
 
-Subsituting $\mathbf{w}$ with $\sum\limits_{k=1}^K \lambda_ky_kx_k$,  the objective function becomes: 
-$$L = -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j 
+Subsituting $\mathbf{w}$ with $\sum\limits_{k=1}^K \lambda_ky_kx_k$,  the objective function becomes:
+$$L = -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j
 \mathbf{x}_i^T\mathbf{x}_j + \sum\limits_{k=1}^K\lambda_k
 $$
 
@@ -501,71 +501,71 @@ $$
 
 
 ::: {.column width="50%"}
-Thus, the new **dual form** is: 
-$$\begin{cases}   
-    \max & -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j 
+Thus, the new **dual form** is:
+$$\begin{cases}
+    \max & -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j
 \mathbf{x}_i^T\mathbf{x}_j + \sum\limits_{k=1}^K\lambda_k \\
     s.t. & \lambda_k \ge 0, \forall k \in [1..K],  \\
          & \sum\limits_{k=1}^K \lambda_ky_k=0
-\end{cases}$$ 
+\end{cases}$$
 
-- The number of unknowns to solve drops from $n$ features to $K$ samples. 
+- The number of unknowns to solve drops from $n$ features to $K$ samples.
 
 - Instead of finding $\mathbf{w}$, find $K$ $\lambda_k$'s. (Is an SVM really non-parametric?)
 
-- The new SVM: $g(\mathbf{x}) + w_b = \mathbf{w}^T\mathbf{x}  + w_b  = \sum_{k=1}^K \lambda_k y_k (\mathbf{x}^T \mathbf{x_k}) + w_b$. 
+- The new SVM: $g(\mathbf{x}) + w_b = \mathbf{w}^T\mathbf{x}  + w_b  = \sum_{k=1}^K \lambda_k y_k (\mathbf{x}^T \mathbf{x_k}) + w_b$.
 
-- To store an SVM model, just store the support vectors $\mathbf{x}_i$'s, their labels $y_i$'s and weights $\lambda_i$'s, and the bias $w_b$. 
+- To store an SVM model, just store the support vectors $\mathbf{x}_i$'s, their labels $y_i$'s and weights $\lambda_i$'s, and the bias $w_b$.
 
 :::
 ::::::::::::::
 
-# SVMs are similarity-based classifiers 
+# SVMs are similarity-based classifiers
 
 * The prediction for a sample $\mathbf{x}$: $$\sum_{k=1}^K \lambda_k y_k (\mathbf{x}^T \mathbf{x_k}) + w_b$$
-* Recall that $y_k = +1$ if a sample $\mathbf{x}_k$ belongs to class $+1$ (the set $C_{+1}$), while  $y_k = -1$ if class $-1$ (the set $C_{-1}$). 
-* Thus the prediction can be rewritten into three terms: 
+* Recall that $y_k = +1$ if a sample $\mathbf{x}_k$ belongs to class $+1$ (the set $C_{+1}$), while  $y_k = -1$ if class $-1$ (the set $C_{-1}$).
+* Thus the prediction can be rewritten into three terms:
   $$\underbrace{\sum_{\mathbf{x_k} \in C_{+1}}\lambda_k (\mathbf{x}^T \mathbf{x_k})}_{\text{weighted similarity to positive samples}}
     - \underbrace{\sum_{\mathbf{x_k} \in C_{-1}}\lambda_k (\mathbf{x}^T \mathbf{x_k})}_{\text{weighted similarity to negative samples}}
     + w_b$$
-- The expression above basically says: whether the sample $\mathbf{x}$ is more like the negative ($-1$) samples or the positive ($+1$) samples. 
-* Similarities are weighted by sample weights $\lambda_i$. Samples whose $\lambda_i=0$ have no "voting power." Only support vectors, i.e., those whose  $\lambda_i> 0$, have. 
+- The expression above basically says: whether the sample $\mathbf{x}$ is more like the negative ($-1$) samples or the positive ($+1$) samples.
+* Similarities are weighted by sample weights $\lambda_i$. Samples whose $\lambda_i=0$ have no "voting power." Only support vectors, i.e., those whose  $\lambda_i> 0$, have.
 
 # **Kernel tricks**: achieving non-linearity on SVMs
-- In the previous slides, any two samples "interact" with each other thru dot product, e.g., $\mathbf{x_i}^T\mathbf{x}_j$ (in training, between two samples) or $\mathbf{x}^T \mathbf{x_k}$ (in prediction, between a sample to be predicted and a support vector). 
+- In the previous slides, any two samples "interact" with each other thru dot product, e.g., $\mathbf{x_i}^T\mathbf{x}_j$ (in training, between two samples) or $\mathbf{x}^T \mathbf{x_k}$ (in prediction, between a sample to be predicted and a support vector).
 
-- Note that dot product is about measuring similarity between two vectors. 
+- Note that dot product is about measuring similarity between two vectors.
 
-- It can be expanded to any function, denoted as $\mathcal{K}(\mathbf{x}, \mathbf{y})$ ($\mathbf{x}$ and $\mathbf{y}$ are any two vectors of same dimension. Not the input and output of an estimator), between two vectors, known as the **kernel function** or **kernel tricks**. 
+- It can be expanded to any function, denoted as $\mathcal{K}(\mathbf{x}, \mathbf{y})$ ($\mathbf{x}$ and $\mathbf{y}$ are any two vectors of same dimension. Not the input and output of an estimator), between two vectors, known as the **kernel function** or **kernel tricks**.
 
-- SVM dual form using the kernel function $\mathcal{K}$ (to solve, not for prediction): 
-  $$\begin{cases}   
-    \max & -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j 
-  \mathcal{K}(\mathbf{x}_i, \mathbf{x}_j) + \sum\limits_{k=1}^K\lambda_k \\
+- SVM dual form using the kernel function $\mathcal{K}$ (to solve, not for prediction):
+  $$\begin{cases}
+    \max & -\frac{1}{2} \sum\limits_{i=1}^K \sum\limits_{j=1}^K \lambda_i \lambda_j y_i y_j
+  \mathcal{K}(\mathbf{x}_i^T, \mathbf{x}_j) + \sum\limits_{k=1}^K\lambda_k \\
     s.t. & \lambda_k \ge 0, \forall k \in [1..K], \sum\limits_{k=1}^K \lambda_ky_k=0
-  \end{cases}$$ 
+  \end{cases}$$
 
 - An SVM using the kernel function (predicting): $\sum_{k=1}^K \lambda_k y_k \mathcal{K}(\mathbf{x}, \mathbf{x_k}) + w_b$
 
 # Types of kernels
-- Linear kernels: what we have seen so far in SVMs. 
+- Linear kernels: what we have seen so far in SVMs.
 
-- Polynomial kernels: $\mathcal{K}(\mathbf{x}, \mathbf{y})= (\mathbf{x}\cdot \mathbf{y} + b)^p$ where $p\in\mathbb{Z^+}$ and $b\in \mathbb{R}$. 
+- Polynomial kernels: $\mathcal{K}(\mathbf{x}, \mathbf{y})= (\mathbf{x}\cdot \mathbf{y} + b)^p$ where $p\in\mathbb{Z^+}$ and $b\in \mathbb{R}$.
 
 - Gaussian (radial basis function, RBF) kernels (that build contours around support vectors when $\mathbf{y}$ is a support vector): $\mathcal{K}(\mathbf{x}, \mathbf{y}) = \exp (-||\mathbf{x}- \mathbf{y}||^2 / \sigma)$
 
-- A Gaussian kernel amplifies the influence of close samples and attenuates that of distant samples. 
+- A Gaussian kernel amplifies the influence of close samples and attenuates that of distant samples.
 
-- Usually linear and Gaussian are good enough. A Gaussian kernel can be decomposed into many polynomial terms. 
+- Usually linear and Gaussian are good enough. A Gaussian kernel can be decomposed into many polynomial terms.
 
 # Transforming a nonlinearly separable problem to a linearly separable one
 
 ![](figs/kernel_machine.png){width="100%"}
-Source: Wikipedia/SVM. 
+Source: Wikipedia/SVM.
 
-# How to get the $w_b$? 
-- The optimization problem itself, in either the dual or primal form, ignores the bias term $w_b$. 
-- So how? 
+# How to get the $w_b$?
+- The optimization problem itself, in either the dual or primal form, ignores the bias term $w_b$.
+- So how?
 
 # Generalized Linear Classifier
 
@@ -585,7 +585,7 @@ Source: Wikipedia/SVM.
 -   Once the space transform is done, we wanna find a weight vector
     $\mathbf{w}\in \mathbb{R}^P$ such that $$\begin{cases}
          \mathbf{w}^T\mathbf{z} + w_b > 0 & \text{ if } \mathbf{z}\in C_1\\
-         \mathbf{w}^T\mathbf{z} + w_b < 0 & \text{ if } \mathbf{z}\in C_2. 
+         \mathbf{w}^T\mathbf{z} + w_b < 0 & \text{ if } \mathbf{z}\in C_2.
         \end{cases}$$
 
 -   Essentially, we are building a new hyperplane $g(\mathbf{x})=0$ such
@@ -614,13 +614,13 @@ Source: Wikipedia/SVM.
 :::
 ::: {.column width="60%"}
 
--   We could allow some samples to fall into the margin in exchange for wider margin on the remaining samples. 
+-   We could allow some samples to fall into the margin in exchange for wider margin on the remaining samples.
 
 -   Therefore, we have a new optimization problem: $$\begin{cases}
                \min & \frac{1}{2} ||\mathbf{w}||^2 + C \sum_{k=1}^K \xi_k \\
                s.t. & y_k(\mathbf{w}^T\mathbf{x}_k + w_b) \ge 1 - \xi_k, \forall \mathbf{x}_k \\
-               & \xi_k \ge 0 . 
-            \end{cases}     $$ where $C$ is a constant, and $\xi_k$ is called a **slack** variable defined as $\max(0, 1-y_i(\mathbf{w}^T\mathbf{x}_k + w_b))$. 
+               & \xi_k \ge 0 .
+            \end{cases}     $$ where $C$ is a constant, and $\xi_k$ is called a **slack** variable defined as $\max(0, 1-y_i(\mathbf{w}^T\mathbf{x}_k + w_b))$.
 
 -   Such SVM is called *soft-margin*.
 
@@ -628,44 +628,64 @@ Source: Wikipedia/SVM.
     and minimizing the quality, instead of quantity, of
     misclassification.
 
-- How to find $C$? Grid search using cross-validation.
+- Next: How to find $C$ and why is slack variable defined so.
 
 :::
-:::::::::::::: 
+::::::::::::::
 
 # Hyperparameters of SVMs
 - C: the trade-off between the margin and the misclassification error. For soft-margin SVMs only. The larger the C, the less tolerant the SVM is to misclassification errors.
 
-- $\gamma$ (also denoted as $\sigma$ as in $\exp \left( ||\mathbf{x} - \mathbf{y}||^2 \over \sigma \right )$): the kernel coefficient. For Gaussian kernels only. The larger the $\gamma$, the more influence the samples have on the decision boundary.
+- Hyperparameters: Parameters of a model that is not updated in training but set based on experience or arbitrarily.
 
+- Grid search: Create a sequence of values for each hyperparameter and form a grid from them using Cartesian product. Then for each point on the grid, evaluate the performance of the model. Finally, use the one that yields the best performance.
+
+- How to evaluate the performance of a classifer?
+
+# Test set
+- It would be unfair to evaluate the performance of a classifier using samples seen by the model during training.
+
+- Samples unseen in training and used to evaluate the performance of a model form the **test set**.
+
+- So, from all your data, you split them into two groups **training set** and test set.
+
+- But, is just one test set good?
+
+# Cross-validation
+
+- Cross validation (CV): split your data into many pairs of training and test sets. Then evaluate the performance of the classifier on each pair. Usually the test sets do not overlap. And, of course, the training and test sets in each pair do not overlap.
+
+- k-fold CV: Split all data into $k$ folds, equal-size and **non-overlapping**. In each round the CV, use $k-1$ folds for training and the rest one fold for test. Then rotate on the test set. Stop after every fold has been used as test set exactly $k$ times.
+
+- leave-N-out CV (LNOCV): A special case of k-fold CV that only N samples are the test set. When $N=1$, it becomes leave-one-out CV (LOOCV).
 
 # The slack variable and hinge loss
 
-- What is the $\xi = \max(0, 1-y_i(\mathbf{w}^T\mathbf{x} + w_b))$ when a sample $\mathbf{x}$ is correctly classified? 
+- What is the $\xi = \max(0, 1-y_i(\mathbf{w}^T\mathbf{x} + w_b))$ when a sample $\mathbf{x}$ is correctly classified?
 
-- It's zero. 
+- It's zero.
 
-- In that case, the constraint is the same as that for hard margin linear SVMs: $y_k(\mathbf{w}^T\mathbf{x} + w_b) \ge 0$. 
+- In that case, the constraint is the same as that for hard margin linear SVMs: $y_k(\mathbf{w}^T\mathbf{x} + w_b) \ge 0$.
 
-- The expression $\max(0, 1-y\cdot \hat{y})$ where $y\in\{+1, -1\}$ is the ground truth label and $\hat{y}$ is prediction for a classifier, is called a **hinge loss**. It's "hinge" because as long as the classification is correct, the loss/error is (capped at) 0. 
+- The expression $\max(0, 1-y\cdot \hat{y})$ where $y\in\{+1, -1\}$ is the ground truth label and $\hat{y}$ is prediction for a classifier, is called a **hinge loss**. It's "hinge" because as long as the classification is correct, the loss/error is (capped at) 0.
 
 # Scaling is important
-* Like in many ML approaches, scaling is important for SVMs -- to prevent features of large amplitude from dominating the model. 
+* Like in many ML approaches, scaling is important for SVMs -- to prevent features of large amplitude from dominating the model.
 * For example, if $\mathbf{x} = [1, 100, 1]$, then the two 1's will have little influence to $\mathbf{w}^T\mathbf{x}$.
 * This may not be a big issue for vanilla linear classifiers, but because SVM is a similarity-based classifier, large-amplitude features will dominate the similarity measure.
-* Common scaling strategy: min-max-scaler. 
+* Common scaling strategy: min-max-scaler.
 
 
 # Discussion
 * The more support vectors are better or the fewer support vectors are better?
-* In worse case, every training sample is a support vector -- a very overfitted model. 
+* In worse case, every training sample is a support vector -- a very overfitted model.
 
 # Recap
-* Intution: making the most similar samples of two classes (the support vectors) as different as possible, e.g., banana-looking apples vs apple-looking bananas. 
+* Intution: making the most similar samples of two classes (the support vectors) as different as possible, e.g., banana-looking apples vs apple-looking bananas.
 * The support vectors are the closest samples to the decision hyperplane.
 * Only support vectors determine the decision hyperplane.
-* Soft-margin SVMs: allow some samples to fall into the margin in exchange for a wider margin. 
+* Soft-margin SVMs: allow some samples to fall into the margin in exchange for a wider margin.
 * Non-linear SVMs: transform the input space to a feature space where the two classes are linearly separable.
-* Future reading: 
-  * A Gentle Introduction to Support Vector Machines in Biomedicine, Statnikov et al., AIMA 2019, https://www.eecis.udel.edu/~shatkay/Course/papers/UOSVMAlliferisWithoutTears.pdf 
+* Future reading:
+  * A Gentle Introduction to Support Vector Machines in Biomedicine, Statnikov et al., AIMA 2019, https://www.eecis.udel.edu/~shatkay/Course/papers/UOSVMAlliferisWithoutTears.pdf
   * A Practical Guide to Support Vector Classification, Hsu et al., 2003-2016, https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf

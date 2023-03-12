@@ -1,0 +1,2 @@
+Gradient vanishing: can we just adjust the learning
+rate parameter as
