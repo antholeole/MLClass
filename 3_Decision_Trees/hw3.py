@@ -4,19 +4,19 @@
 import operator
 import numpy, sklearn, sklearn.tree
 
-def estimate_gini_impurity(feature_values, threshold, labels, polarity): 
+def estimate_gini_impurity(feature_values, threshold, labels, polarity):
     """Compute the gini impurity for comparing a feature value against a threshold under a given polarity
 
     feature_values: 1D numpy array, feature_values for samples on one feature dimension
     threshold: float
-    labels: 1D numpy array, the label of samples, only +1 and -1. 
+    labels: 1D numpy array, the label of samples, only +1 and -1.
     polarity: operator type, only operator.gt or operator.le are allowed
 
     Examples
     -------------
     >>> feature_values = numpy.array([1,2,3,4,5,6,7,8])
     >>> labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
-    >>> for threshold in range(0,8): 
+    >>> for threshold in range(0,8):
     ...     print("%.5f" % estimate_gini_impurity(feature_values, threshold, labels, operator.gt))
     0.50000
     0.48980
@@ -26,7 +26,7 @@ def estimate_gini_impurity(feature_values, threshold, labels, polarity):
     0.00000
     0.00000
     0.00000
-    >>> for threshold in range(0,8): 
+    >>> for threshold in range(0,8):
     ...     print("%.5f" % estimate_gini_impurity(feature_values, threshold, labels, operator.le))
     1.00000
     0.00000
@@ -38,22 +38,32 @@ def estimate_gini_impurity(feature_values, threshold, labels, polarity):
     0.48980
     """
 
-    # YOUR CODE HERE
+    if sum(polarity(feature_values, threshold)) == 0:
+        return 1
 
-    return gini_impurity
+    all_labels = numpy.unique(labels)
+    pr_classes = map(
+        lambda label: sum(numpy.logical_and(
+            labels == label,
+            polarity(feature_values, threshold)
+        )) / sum(polarity(feature_values, threshold)),
+        all_labels
+    )
+
+    return sum(map(lambda pr_class: pr_class * (1 - pr_class), pr_classes))
 
 def estimate_gini_impurity_expectation(feature_values, threshold, labels):
-    """Compute the expectation of gini impurity given the feature values on one  feature dimension and a threshold 
+    """Compute the expectation of gini impurity given the feature values on one  feature dimension and a threshold
 
     feature_values: 1D numpy array, feature_values for samples on one feature dimension
     threshold: float
-    labels: 1D numpy array, the label of samples, only +1 and -1. 
+    labels: 1D numpy array, the label of samples, only +1 and -1.
 
-    Examples 
+    Examples
     ---------------
     >>> feature_values = numpy.array([1,2,3,4,5,6,7,8])
     >>> labels = numpy.array([+1,+1,+1,+1, -1,-1,-1,-1])
-    >>> for threshold in range(0,9): 
+    >>> for threshold in range(0,9):
     ...     print("%.5f" % estimate_gini_impurity_expectation(feature_values, threshold, labels))
     0.50000
     0.42857
@@ -67,20 +77,24 @@ def estimate_gini_impurity_expectation(feature_values, threshold, labels):
 
     """
 
-    # YOUR CODE HERE
+    num_datapoints = len(feature_values)
 
-    return expectation
+    return sum(
+        (sum(op(feature_values, threshold)) / num_datapoints) * estimate_gini_impurity(feature_values, threshold, labels, op)
+        for op in [operator.le, operator.gt]
+    )
+
 
 def midpoint(x):
-    """Given a sequqence of numbers, return the middle points between every two consecutive ones. 
+    """Given a sequqence of numbers, return the middle points between every two consecutive ones.
     >>> x= numpy.array([1,2,3,4,5])
     >>> (x[1:] + x[:-1]) / 2
     array([1.5, 2.5, 3.5, 4.5])
     """
     return (x[1:] + x[:-1]) / 2
 
-def grid_search_split_midpoint(X, y): 
-    """Given a dataset, compute the gini impurity expectation for all pairs of features and thresholds. 
+def grid_search_split_midpoint(X, y):
+    """Given a dataset, compute the gini impurity expectation for all pairs of features and thresholds.
 
     Inputs
     ----------
@@ -91,7 +105,7 @@ def grid_search_split_midpoint(X, y):
     ---------
         grid: 2-D numpy array, axis 0 or row is a threshold, and axis 1 or column is a feature
 
-    Examples 
+    Examples
     -------------
     >>> numpy.random.seed(1) # fix random number generation starting point
     >>> X = numpy.random.randint(1, 10, (8,3)) # generate training samples
@@ -115,7 +129,7 @@ def grid_search_split_midpoint(X, y):
     >>> print( clf.tree_.threshold[0] == bts)
     True
 
-    >>> # Antoher test case 
+    >>> # Antoher test case
     >>> numpy.random.seed(2) # fix random number generation starting point
     >>> X = numpy.random.randint(1, 30, (8,3)) # generate training samples
     >>> grid, feature_id, bts = grid_search_split_midpoint(X, y)
@@ -137,7 +151,7 @@ def grid_search_split_midpoint(X, y):
     True
 
 
-    >>> # yet antoher test case 
+    >>> # yet antoher test case
     >>> numpy.random.seed(4) # fix random number generation starting point
     >>> X = numpy.random.randint(1, 100, (8,3)) # generate training samples
     >>> grid, feature_id, bts = grid_search_split_midpoint(X, y)
@@ -164,16 +178,16 @@ def grid_search_split_midpoint(X, y):
 
     # YOUR CODE HERE
 
-    return grid, best_feature, best_threshold 
+    return grid, best_feature, best_threshold
 
 def you_rock(N, R, d):
     """
-    N: int, number of samples, e.g., 1000. 
-    R: int, maximum feature value, e.g., 100. 
-    d: int, number of features, e.g., 3. 
+    N: int, number of samples, e.g., 1000.
+    R: int, maximum feature value, e.g., 100.
+    d: int, number of features, e.g., 3.
 
     """
-    numpy.random.seed() # re-random the seed 
+    numpy.random.seed() # re-random the seed
     hits = 0
     for _ in range(N):
         X = numpy.random.randint(1, R, (8,d)) # generate training samples
@@ -181,14 +195,14 @@ def you_rock(N, R, d):
         _, feature_id, bts = grid_search_split_midpoint(X, y)
         clf = sklearn.tree.DecisionTreeClassifier(max_depth=1)
         clf = clf.fit(X,y)
-        
+
         if clf.tree_.feature[0] == feature_id and clf.tree_.threshold[0] == bts:
-            hits += 1 
+            hits += 1
     print ("your Decision tree is {:2.2%} consistent with Scikit-learn's result.".format(hits/N))
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
-    you_rock(1000, 100, 3)
+    #you_rock(1000, 100, 3)
 
 
